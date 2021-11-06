@@ -59,6 +59,14 @@ func BenchmarkProcessAsyncRandInd(b *testing.B) {
 	}
 }
 
+func BenchmarkProcessAsyncRandFeeder(b *testing.B) {
+	for _, workerNum := range workerNums {
+		b.Run(fmt.Sprintf("worker_%v", workerNum), func(b *testing.B) {
+			benchmarkRoutines(b, workerNum, workLoad, NewFeederGen)
+		})
+	}
+}
+
 func benchmarkRoutines(b *testing.B, workerNum, workAmount int, gen func() Generator) {
 	for i := 0; i < b.N; i++ {
 		wg := &sync.WaitGroup{}

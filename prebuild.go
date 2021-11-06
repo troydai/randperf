@@ -23,8 +23,8 @@ func NewPrebuildRand() Generator {
 
 	at := rand.Intn(len(pre))
 	return func() float64 {
-		v := pre[at%len(pre)]
-		at++
+		v := pre[at]
+		at = (at + 1) % len(pre)
 		return v
 	}
 }
